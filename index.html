@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f5bd8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="GPS Report" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <title>GPS Report PDF</title>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>GPS Report PDF</h1>
+      <p>Da screenshot del localizzatore a prospetto PDF modificabile</p>
+    </div>
+    <span class="privacy-badge">Elaborazione locale</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1. Carica gli screenshot</h2>
+      <p class="muted">Puoi selezionare più immagini della stessa giornata. I file restano sul dispositivo.</p>
+      <label class="upload-box">
+        <input id="fileInput" type="file" accept="image/*" multiple />
+        <strong>Seleziona screenshot</strong>
+        <span>oppure scatta una foto dallo smartphone</span>
+      </label>
+      <div id="imageList" class="image-list"></div>
+      <div class="actions">
+        <button id="ocrBtn" class="primary" disabled>Leggi gli screenshot</button>
+        <button id="demoBtn" class="secondary">Carica esempio</button>
+        <button id="clearBtn" class="ghost">Azzera</button>
+      </div>
+      <div id="ocrStatus" class="status hidden"></div>
+    </section>
+
+    <section class="card">
+      <h2>2. Verifica il riepilogo</h2>
+      <div class="grid">
+        <label>Titolo del prospetto
+          <input id="reportTitle" value="Resoconto GPS - Montichiari" />
+        </label>
+        <label>Data analizzata
+          <input id="reportDate" type="date" />
+        </label>
+        <label>Distanza visualizzata dall'app
+          <input id="appDistance" placeholder="es. 35 km" />
+        </label>
+        <label>Tempo di guida visualizzato dall'app
+          <input id="appDriveTime" placeholder="es. 1 ora" />
+        </label>
+      </div>
+      <p class="hint">
+        La partenza viene ricavata dall'indirizzo della sosta che precede il primo movimento.
+        L'arrivo viene ricavato dall'ultima sosta successiva all'ultimo movimento.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="section-heading">
+        <div>
+          <h2>3. Controlla e correggi gli eventi</h2>
+          <p class="muted">Puoi modificare ogni campo prima di generare il PDF.</p>
+        </div>
+        <button id="addRowBtn" class="secondary">Aggiungi evento</button>
+      </div>
+      <div class="table-wrap">
+        <table id="eventsTable">
+          <thead>
+            <tr>
+              <th>Tipo evento</th>
+              <th>Data</th>
+              <th>Ora inizio</th>
+              <th>Ora fine</th>
+              <th>Indirizzo</th>
+              <th>Comune</th>
+              <th>Durata</th>
+              <th>Maps</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="eventsBody"></tbody>
+        </table>
+      </div>
+      <div class="actions">
+        <button id="normalizeBtn" class="secondary">Ricalcola partenza e arrivo</button>
+        <button id="pdfBtn" class="primary">Genera PDF</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Installazione su iPhone</h2>
+      <p class="muted">Dopo la pubblicazione su un indirizzo HTTPS, apri il link con Safari, tocca Condividi e scegli <strong>Aggiungi alla schermata Home</strong>.</p>
+    </section>
+  </main>
+
+  <footer>
+    GPS Report PDF · nessun dato inviato a server esterni
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
