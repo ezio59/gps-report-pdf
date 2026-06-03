@@ -60,8 +60,7 @@
         </label>
       </div>
       <p class="hint">
-        La partenza viene ricavata dall'indirizzo della sosta che precede il primo movimento.
-        L'arrivo viene ricavato dall'ultima sosta successiva all'ultimo movimento.
+        L’app predispone automaticamente la <strong>PARTENZA</strong>, le soste <strong>PARCHEGGIO</strong> e la riga conclusiva <strong>FINE GIORNATA</strong>. Gli indirizzi, i comuni e i collegamenti a Google Maps vengono compilati automaticamente e restano modificabili.
       </p>
     </section>
 
@@ -92,7 +91,7 @@
         </table>
       </div>
       <div class="actions">
-        <button id="normalizeBtn" class="secondary">Ricalcola partenza e arrivo</button>
+        <button id="normalizeBtn" class="secondary">Ricalcola sequenza</button>
         <button id="pdfBtn" class="primary">Genera PDF</button>
       </div>
     </section>
@@ -108,5 +107,6 @@
   </footer>
 
   <script src="app.js"></script>
+  <script src="patch.js"></script>
 </body>
 </html>
