@@ -1,0 +1,17 @@
+{
+  "name": "GPS Report PDF",
+  "short_name": "GPS Report",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f6fb",
+  "theme_color": "#0f5bd8",
+  "description": "Genera prospetti PDF modificabili a partire da screenshot GPS.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
